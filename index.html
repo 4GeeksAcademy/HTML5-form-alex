@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario HTML5</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="my-4 p-3 bg-light border rounded">Payment form example</h2>
+
+        <div id="alertMessage" class="alert alert-danger d-none" role="alert">
+            Some fields are missing
+        </div>
+
+        <form id="paymentForm">
+
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label for="card">Card</label>
+                    <input type="text" class="form-control" id="card" placeholder="XXXXXXXXXXXXXXXXXX">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="cvc">CVC #</label>
+                    <input type="text" class="form-control" id="cvc" placeholder="0000">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="amount">Amount</label>
+                    <input type="text" class="form-control" id="amount" placeholder="Amount">
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" class="form-control" id="lastName">
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="state">State</label>
+                    <select class="form-control" id="state" required>
+                        <option value="" disabled selected>Pick a state</option>
+                        <option value="sol">Soltero</option>
+                        <option value="cas">Casado/a</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="postalCode">Postal Code</label>
+                    <input type="text" class="form-control" id="postalCode">
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="weAccept">We Accept:</label>
+                    <div class="d-flex justify-content-between bg-dark p-2 rounded">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="weAccept" id="option1" value="option1">
+                            <label class="form-check-label" for="option1">
+                                <i class="fas fa-credit-card" style="font-size: 20px; color:white;"></i>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="weAccept" id="option2" value="option2">
+                            <label class="form-check-label" for="option2">
+                                <i class="fas fa-money-bill-wave" style="font-size: 20px; color:white;"></i>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="weAccept" id="option3" value="option3">
+                            <label class="form-check-label" for="option3">
+                                <i class="fas fa-wallet" style="font-size: 20px; color:white;"></i>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="weAccept" id="option4" value="option4">
+                            <label class="form-check-label" for="option4">
+                                <i class="fas fa-piggy-bank" style="font-size: 20px; color:white;"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-3"></div>
+                <div class="form-group col-md-6">
+                    <label for="message">Message</label>
+                    <textarea class="form-control" id="message" rows="3"></textarea>
+                    <small class="form-text text-muted">Add any nothes here.</small>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-end bg-light p-3 my-4 border rounded"> 
+                    <button type="button" class="btn btn-dark mr-2" onclick="resetForm()">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="validateForm()">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let card = document.getElementById('card').value;
+            let cvc = document.getElementById('cvc').value;
+            let amount = document.getElementById('amount').value;
+            let firstName = document.getElementById('firstName').value;
+            let lastName = document.getElementById('lastName').value;
+            let city = document.getElementById('city').value;
+            let state = document.getElementById('state').value;
+            let postalCode = document.getElementById('postalCode').value;
+            let message = document.getElementById('message').value;
+            let weAccept = document.querySelector('input[name="weAccept"]:checked');
+
+            // Mostrar o ocultar el mensaje de error
+            if (!card || !cvc || !amount || !firstName || !lastName || !city || !state || !postalCode || !message || !weAccept) {
+                document.getElementById('alertMessage').classList.remove('d-none'); // Mostrar alerta de error
+                return false; // Impedir el envío del formulario
+            }
+
+            // Si todo es válido, ocultar el mensaje de error
+            document.getElementById('alertMessage').classList.add('d-none'); // Ocultar alerta de error
+            return true; // Permitir el envío del formulario
+        }
+
+        // Función para resetear el formulario (si es necesario)
+        function resetForm() {
+            document.getElementById('alertMessage').classList.add('d-none'); // Ocultar alerta de error
+            document.querySelector("form").reset();
+        }
+    </script>
+</body>
